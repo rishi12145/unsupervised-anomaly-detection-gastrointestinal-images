@@ -26,12 +26,21 @@ The goal is to assist in early detection of diseases such as:
 ## 📊 Dataset
 
 * **Dataset:** HyperKvasir (Kaggle version)
-* Contains labeled gastrointestinal endoscopy images
+* **Source:** https://www.kaggle.com/datasets/kelkalot/the-hyper-kvasir-dataset
+
+The dataset contains labeled gastrointestinal endoscopy images divided into:
 
 ### Classes:
 
 * **Normal (0):** anatomical landmarks
 * **Abnormal (1):** pathological findings
+
+### Structure:
+
+* Upper GI tract
+* Lower GI tract
+* Anatomical landmarks (normal)
+* Pathological findings (abnormal)
 
 ### Data Split:
 
