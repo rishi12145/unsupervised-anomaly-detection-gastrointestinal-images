@@ -1,39 +1,53 @@
-🧠 Unsupervised Anomaly Detection in Gastrointestinal Images
-Using Multi-Level Feature Reconstruction
 📌 Overview
 
 This project focuses on unsupervised anomaly detection in gastrointestinal (GI) endoscopy images using deep learning.
 
-Unlike traditional classification models, this approach learns only from normal images and identifies abnormalities based on how well the model can reconstruct image features.
+Unlike traditional classification models, this approach learns only from normal images and detects abnormalities based on reconstruction error in feature space.
 
-The system leverages a pretrained ResNet50 encoder combined with a feature reconstruction decoder, enabling it to detect and localize anomalies such as:
+💡 The model leverages:
+
+ResNet50 encoder
+Multi-level feature extraction
+Feature reconstruction decoder
+
+🎯 Goal: Assist in early detection of diseases like:
 
 Polyps
 Ulcerative colitis
 Esophagitis
 Barrett’s esophagus
 🚀 Key Features
-✅ Unsupervised Learning Approach (trained only on normal data)
-✅ ResNet50-based Feature Extraction
-✅ Multi-Level Feature Reconstruction (Layer 2, 3, 4)
-✅ Combined Loss (MSE + SSIM) for better reconstruction
-✅ ROC-based Threshold Selection
-✅ Grad-CAM Heatmaps for anomaly localization
-✅ Achieves ~94.66% Accuracy and AUROC ≈ 0.9888
-📊 Dataset
-Dataset: HyperKvasir (Kaggle)
-Source: https://www.kaggle.com/datasets/kelkalot/the-hyper-kvasir-dataset
+🧠 Unsupervised Learning (trained only on normal data)
+🔍 Multi-Level Feature Extraction (Layer 2, 3, 4)
+⚙️ Combined Loss (MSE + SSIM)
+📊 ROC-based Threshold Selection
+🔥 Grad-CAM Heatmaps for localization
+📈 High performance with AUROC ≈ 0.9888
+🖼️ Model Architecture
 
-The dataset consists of gastrointestinal endoscopy images categorized into:
+(Add your diagram image here later)
 
-Classes:
-Normal Images: Anatomical landmarks
-Abnormal Images: Pathological findings
-Abnormal Categories:
-Polyps
-Esophagitis
-Ulcerative colitis
-Barrett’s esophagus
+[ Input Image ]
+        ↓
+[ Preprocessing ]
+        ↓
+[ ResNet50 Encoder ]
+        ↓
+[ Multi-Level Features ]
+        ↓
+[ Bottleneck Layer ]
+        ↓
+[ Decoder ]
+        ↓
+[ Reconstruction ]
+        ↓
+[ Error Calculation ]
+        ↓
+[ Anomaly Score ]
+        ↓
+[ Classification ]
+        ↓
+[ Heatmap Output ]
 🔄 Complete Pipeline
 Input Image
      ↓
@@ -49,7 +63,7 @@ Decoder (ConvTranspose Layers)
      ↓
 Reconstructed Features
      ↓
-Reconstruction Error Calculation
+Reconstruction Error
      ↓
 Anomaly Score
      ↓
@@ -57,52 +71,48 @@ Threshold (ROC-based)
      ↓
 Classification (Normal / Abnormal)
      ↓
-Heatmap (Localization of anomaly)
+Heatmap (Localization)
+📊 Dataset
+
+📂 HyperKvasir Dataset
+🔗 https://www.kaggle.com/datasets/kelkalot/the-hyper-kvasir-dataset
+
+Classes:
+Normal (0): Anatomical landmarks
+Abnormal (1): Pathological findings
+Abnormal Categories:
+Polyps
+Esophagitis
+Ulcerative colitis
+Barrett’s esophagus
 ⚙️ Methodology
 1️⃣ Data Preprocessing
-Resize all images to 224 × 224
-Normalize using ImageNet mean and standard deviation
-Organize dataset into normal and abnormal folders
-Use DataLoader for efficient batch processing
-2️⃣ Feature Extraction (Encoder)
-Backbone: ResNet50 (pretrained on ImageNet)
-Early layers are frozen to retain learned representations
-Extract multi-level features:
-Layer 2 → Low-level (edges, textures)
-Layer 3 → Mid-level (shapes, structures)
-Layer 4 → High-level (semantic information)
+Resize → 224×224
+Normalize → ImageNet stats
+DataLoader → Efficient batching
+2️⃣ Feature Extraction
+Backbone: ResNet50 (pretrained)
+Freeze early layers
+Extract:
+Layer 2 → Low-level features
+Layer 3 → Mid-level features
+Layer 4 → High-level features
 3️⃣ Bottleneck Layer
-Refines and compresses extracted features
-Ensures meaningful representation before reconstruction
-4️⃣ Decoder (Reconstruction)
-Uses ConvTranspose layers for upsampling
-Reconstructs features instead of raw pixels
-Learns only normal feature distribution
+Refines extracted features
+Improves reconstruction quality
+4️⃣ Decoder
+ConvTranspose layers
+Reconstructs feature maps
 5️⃣ Loss Function
-Mean Squared Error (MSE) → Pixel similarity
-Structural Similarity Index (SSIM) → Structural integrity
-
-👉 Combined loss improves reconstruction quality significantly
-
-6️⃣ Training Strategy
-Train only on normal images
-Encoder mostly frozen, decoder trained
-Optimization:
-Adam optimizer
-Learning rate scheduler
-Gradient clipping
-7️⃣ Anomaly Detection
-Compute reconstruction error between:
-Original features
-Reconstructed features
-Higher error → higher anomaly probability
-Generate:
-Anomaly Score
-Binary Classification using ROC threshold
-8️⃣ Localization (Explainability)
-Use Grad-CAM to generate heatmaps
-Highlights regions responsible for anomaly detection
-Helps in medical interpretability
+MSE → pixel similarity
+SSIM → structural similarity
+6️⃣ Anomaly Detection
+Compute reconstruction error
+Generate anomaly score
+Apply ROC threshold
+7️⃣ Explainability
+Grad-CAM heatmaps
+Highlights abnormal regions
 📈 Results
 🔥 Final Performance:
 Train Accuracy: 99.80%
@@ -112,25 +122,20 @@ Precision: 93.40%
 Recall: 92.93%
 F1 Score: 93.16%
 ROC-AUC: 0.9888
-📊 Confusion Matrix:
-True Negatives (TN): 590
-False Positives (FP): 26
-False Negatives (FN): 28
-True Positives (TP): 368
-📉 Observations
-Strong separation between normal and abnormal classes
-Minimal overfitting observed
-High AUROC indicates excellent discrimination ability
-Heatmaps successfully localize pathological regions
-📊 Visualizations
+📊 Visual Results
 
-The project includes:
+(Add your plots here — VERY IMPORTANT for premium look)
 
-Training & Validation Accuracy Curves
-Training & Validation Loss Curves
-Confusion Matrix
-ROC Curve
-Grad-CAM Heatmaps
+📉 Accuracy & Loss Curves
+
+🔍 Confusion Matrix & ROC Curve
+
+(Included in results.png)
+
+🔥 Grad-CAM Visualization
+
+(Add heatmap image here later)
+
 🛠️ Tech Stack
 Python
 PyTorch
@@ -145,44 +150,31 @@ Scikit-learn
 ├── evaluation/
 ├── heatmaps/
 ├── results/
+├── notebook.ipynb
 └── README.md
 ▶️ How to Run
-git clone <your-repo-link>
-cd project-folder
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
 
 pip install -r requirements.txt
 
 python train.py
 💡 Future Improvements
-Add Attention Mechanisms for better feature focus
+Add Attention Mechanisms
 Explore Vision Transformers (ViT)
-Improve anomaly localization accuracy
-Deploy as a real-time medical diagnostic tool
-Extend to fully unsupervised / self-supervised frameworks
-🎯 Conclusion
+Improve localization accuracy
+Deploy as web-based diagnostic tool
+📄 Research Work
 
-This project demonstrates that unsupervised deep learning with multi-level feature reconstruction can effectively detect anomalies in gastrointestinal images.
+📌 After the project review on 16th April, this work was recognized for its strong research potential.
 
-By learning only normal patterns, the model achieves:
-
-High accuracy
-Strong generalization
-Effective anomaly localization
-
-This approach shows strong potential for real-world medical screening applications.
-
-📄 Research Extension
-
-After the project review on 16th April 2026, the work was recognized to have strong research potential.
-
-👉 We are currently working on extending this project into a research paper for publication.
+👉 Currently, we are working on converting this project into a research paper for publication.
 
 👨‍💻 Author
 
 Rishikesh Gopal
-Computer Science Engineering
-IIIT Vadodara – International Campus Diu
+CSE | IIIT Vadodara – Diu
 
 ⭐ Support
 
-If you found this project useful, consider giving it a ⭐ on GitHub!
+If you like this project, give it a ⭐ on GitHub!
