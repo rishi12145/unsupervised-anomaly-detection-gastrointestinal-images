@@ -4,6 +4,11 @@
 
 ---
 
+##Presentation Video
+
+Phase 1: https://drive.google.com/file/d/10R2M-Q26WG1Iv_hKWaeoF6SfZdsAgZnv/view?usp=sharing 
+Phase 2: https://drive.google.com/file/d/1aTWFmZ0cQ7fUgnUafoYXk_-PsmhP_KUI/view?usp=sharing
+
 ## 📌 Overview
 
 This project focuses on **unsupervised anomaly detection** in gastrointestinal (GI) endoscopy images using deep learning.
